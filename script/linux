@@ -1,0 +1,24 @@
+1.基本目录操作
+ pwd
+ ls
+ mkdir 
+ rm -rf
+ cd ~
+ cp -r file1 dir
+ scp
+
+2.读取文件
+ cat
+ echo
+ tail -n 
+ head -n
+
+3.编辑器
+ vi、vim
+ emacs
+
+4.数据流重定向
+ >>
+ >
+ <<
+ <
