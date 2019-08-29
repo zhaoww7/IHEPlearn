@@ -1,0 +1,76 @@
+root里直方图创建方式：
+TH1F h(“右上角长方形”,“标题”，bin数目，开始，停止)；
+支持科学计数法，3e6   5e10
+
+验证两个*.root文件是否一模一样：
+两个*.root文件对应的直方图相减：
+{
+
+   double ivx0 ;       //声明一个double变量，命名为branch的名字
+   double tvx0 ;
+   TCanvas c1;
+   TFile *f1 = new TFile("/scratchfs/bes/zhaoww/boss-7.0.4/sim_validation/v2_root_code/IHEP.root");
+   TFile *f2 = new TFile("/scratchfs/bes/zhaoww/boss-7.0.4/sim_validation/v2_root_code/TH-2.root");
+   TTree *T1 = (TTree*)f1->Get("fit4c");
+   TTree *T2 = (TTree*)f2->Get("fit4c"); 
+
+   T1->SetBranchAddress("vx0",&ivx0);      // "vx0",branch名字，&vx0，声明的名字
+   T2->SetBranchAddress("vx0",&tvx0); 
+
+   TH1F *h = new TH1F("vx0","vx0 distribution",10000,min,max);  
+
+   Long64_t nentries1 = T1->GetEntries();
+   Long64_t nentries2 = T2->GetEntries();
+
+   if(nentries1==nentries2)  {
+        for (Long64_t i=0;i<nentries1;i++) 
+        {
+          T1->GetEntry(i);      //每个entry对应的vx0是不一样的
+          T2->GetEntry(i);
+          h->Fill(ivx0-tvx0);        // entry范围 0~19236
+          h->Draw();
+        }   
+     	c1.Print("vx0.pdf"); }
+    else 
+        cout<<"nentries1!=nentries2"<<endl;
+  
+}
+
+这里 h->Fill(ivx0-tvx0); 还是不能保证ivx0和tvx0一模一样。
+可以写个判断语句，if (ivx0=tvx0)，就填充1；不然就填充0.代码实现如下：
+{
+
+   double ivx0 ;       //声明一个double变量，命名为branch的名字
+   double tvx0 ;
+   TCanvas c1;
+   TFile *f1 = new TFile("/scratchfs/bes/zhaoww/boss-7.0.4/sim_validation/v2_root_code/IHEP.root");
+   TFile *f2 = new TFile("/scratchfs/bes/zhaoww/boss-7.0.4/sim_validation/v2_root_code/TH-2.root");
+   TTree *T1 = (TTree*)f1->Get("geff");
+   TTree *T2 = (TTree*)f2->Get("geff"); 
+
+   T1->SetBranchAddress("vx0",&ivx0);      // "vx0",branch名字，&vx0，声明的名字
+   T2->SetBranchAddress("vx0",&tvx0); 
+
+   TH1F *h = new TH1F("vx0","vx0 distribution",4,-1,3);  
+
+   Long64_t nentries1 = T1->GetEntries();
+   Long64_t nentries2 = T2->GetEntries();
+
+   if(nentries1==nentries2)  {
+        for (Long64_t i=0;i<nentries1;i++) 
+        {
+          T1->GetEntry(i);      //每个entry对应的vx0是不一样的
+          T2->GetEntry(i);
+         // h->Fill(ivx0-tvx0);        // entry范围 0~19236
+         // h->Draw();
+         if (ivx0==tvx0){  h->Fill(1); }
+	 else {h->Fill(0);}
+         } 
+  
+	h->Draw();
+     	c1.Print("vx0.pdf"); }
+   else 
+        cout<<"nentries1!=nentries2"<<endl;
+  
+}
+
