@@ -7,7 +7,7 @@
 ### pre_in_ihep   
   在高能所周四组会五次汇报的PPT
 ### script   
-  内有root资料和Linux基本命令，未来可能添加更多
+  内有root资料、Linux基本命令和Linus自传，未来可能添加更多
 ### software   
   一些有用的软件，仅用于研究使用  
   
