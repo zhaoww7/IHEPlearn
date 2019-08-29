@@ -12,5 +12,4 @@
   一些有用的软件，仅用于研究使用
   
 
-## 关于许可证
-![选择许可证](http://www.ruanyifeng.com/blogimg/asset/201105/free_software_licenses.png)
+
