@@ -1,0 +1,14 @@
+TFile signal("data/signal.root")
+ signal.ls()
+ TTree * mySignalTree = (TTree*)signal.Get("selectedtree")
+ mySignalTree->Print()
+ mySignalTree->Show(iEvt)
+ mySignalTree->Draw("variable")
+ mySignalTree->Draw("x:y")
+ mySignalTree->Draw("x", "y>5")
+ mySignalTree.Draw("mes>>tmphist"); 
+ tmphist.Draw("e");
+ 
+ 更简单地：
+ root *.root
+[0] TBrowser a
