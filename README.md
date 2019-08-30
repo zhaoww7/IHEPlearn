@@ -12,8 +12,7 @@
   一些有用的软件，仅用于研究使用  
   
 ## Markdown 语法汇总
-[Markdown语法汇总](https://www.jianshu.com/p/45faddb1526d)
-
+[Markdown语法汇总](https://www.jianshu.com/p/45faddb1526d)  
 
 [简明Markdown语法](https://blog.csdn.net/u011732358/article/details/83098211)
   
